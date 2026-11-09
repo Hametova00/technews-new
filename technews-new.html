@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>TechStream — технологические новости</title>
+<style>
+:root{--bg:#fff;--bg2:#f4f5f7;--tx:#111318;--mt:#666c78;--bd:#e3e5ea;--ac:#d62839;--lk:#0b57d0;--serif:Georgia,"Times New Roman",serif;--sans:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+:root[data-theme=dark]{--bg:#0f1115;--bg2:#181b21;--tx:#f1f2f4;--mt:#9aa0ab;--bd:#2a2e36;--lk:#7aa7ff}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]):not([data-theme=dark]){--bg:#0f1115;--bg2:#181b21;--tx:#f1f2f4;--mt:#9aa0ab;--bd:#2a2e36;--lk:#7aa7ff}}
+*{box-sizing:border-box}html,body{margin:0}
+body{background:var(--bg);color:var(--tx);font:15px/1.5 var(--sans);-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+button,input,select{font:inherit;color:inherit}button{cursor:pointer}
+:focus-visible{outline:2px solid var(--lk);outline-offset:2px}
+h1,h2,h3{font-family:var(--serif);margin:0;line-height:1.2;letter-spacing:-.01em}
+.mono{font-size:12px}
+#prog{position:fixed;top:0;left:0;height:3px;width:0;background:var(--ac);z-index:60}
+.wrap{max-width:1240px;margin:0 auto;padding:0 16px}
+/* header */
+header.top{background:var(--bg);border-bottom:1px solid var(--bd);z-index:40}
+@media(min-width:800px){header.top{position:sticky;top:0}}
+.row1{display:flex;align-items:center;gap:16px;padding:10px 0;flex-wrap:wrap}
+.logo{font:800 26px var(--serif);letter-spacing:-.03em}.logo b{color:var(--ac)}
+.date{color:var(--mt);font-size:12px;text-transform:capitalize;display:none}
+@media(min-width:1000px){.date{display:block}}
+nav#nav{display:flex;gap:2px;margin-left:8px;order:0}
+nav#nav a{padding:6px 12px;border-radius:6px;font-weight:600;font-size:14px;color:var(--mt);white-space:nowrap;display:flex;gap:6px;align-items:center}
+nav#nav a:hover{color:var(--tx);background:var(--bg2)}nav#nav a.on{color:var(--tx);background:var(--bg2)}
+nav#nav b{background:var(--ac);color:#fff;border-radius:99px;padding:0 6px;font-size:11px;line-height:18px}
+.hr{margin-left:auto;display:flex;gap:8px;align-items:center}
+.sb{position:relative}.sb input{width:220px;max-width:42vw;background:var(--bg2);border:1px solid transparent;border-radius:8px;padding:7px 12px;font-size:14px}
+.sb input:focus{border-color:var(--lk);outline:0;background:var(--bg)}
+.ib{width:34px;height:34px;border-radius:8px;border:1px solid var(--bd);background:var(--bg);display:grid;place-items:center}
+.ib:hover{background:var(--bg2)}
+@media(max-width:799px){nav#nav{order:5;width:100%;margin:0;overflow-x:auto}.hr{margin-left:auto}}
+.cats{border-top:1px solid var(--bd);background:var(--bg2)}
+.cats .wrap{display:flex;gap:4px;overflow-x:auto;padding-top:5px;padding-bottom:5px;scrollbar-width:none}
+.cats a{padding:4px 11px;border-radius:99px;font-size:13px;font-weight:500;color:var(--mt);white-space:nowrap}
+.cats a:hover{color:var(--tx)}.cats a.on{background:var(--tx);color:var(--bg)}
+.tick{background:var(--tx);color:var(--bg);overflow:hidden;font-size:12.5px;white-space:nowrap}
+.tk{display:inline-flex;animation:mq 28s linear infinite;padding:5px 0}
+.tk>div{display:flex}.tick:hover .tk{animation-play-state:paused}
+.tk a{padding:0 26px;font-weight:600;display:inline-flex;gap:8px;align-items:center}
+.tk a:hover{text-decoration:underline}.tk i{font-style:normal;color:#ff6b7a}
+@keyframes mq{to{transform:translateX(-50%)}}
+.demo{background:#fff7e0;color:#5c4400;border:1px solid #f1d98a;border-radius:8px;padding:8px 12px;margin-bottom:12px;font-size:13px}
+.demo code{background:rgba(0,0,0,.07);padding:1px 5px;border-radius:4px}
+main{padding:14px 16px 40px;max-width:1240px;margin:0 auto}
+.page{animation:in .25s ease both}@keyframes in{from{opacity:0;transform:translateY(6px)}}
+/* filter bar */
+.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:12px}
+.bar select{background:var(--bg);border:1px solid var(--bd);border-radius:8px;padding:6px 10px;font-size:13px}
+.btn{border:1px solid var(--bd);background:var(--bg);border-radius:8px;padding:6px 13px;font-size:13px;font-weight:600;display:inline-flex;gap:6px;align-items:center}
+.btn:hover{background:var(--bg2)}.btn.pri{background:var(--tx);color:var(--bg);border-color:var(--tx)}.btn.danger{color:#d92d20}
+.chip{display:inline-block;border:1px solid var(--bd);border-radius:99px;padding:1px 9px;margin:2px 4px 2px 0;font-size:12px;color:var(--mt);background:var(--bg);cursor:pointer}
+.chip:hover,.chip.on{background:var(--tx);color:var(--bg);border-color:var(--tx)}
+.sec{font-size:20px;margin:18px 0 10px;padding-top:8px;border-top:3px solid var(--tx);display:flex;align-items:baseline;gap:8px}
+.sec span{font:500 13px var(--sans);color:var(--mt)}
+.cl{font:700 11px var(--sans);text-transform:uppercase;letter-spacing:.07em;color:var(--ac)}
+.meta{display:flex;gap:6px;align-items:center;color:var(--mt);font-size:12px;flex-wrap:wrap}.meta img{width:14px;height:14px;border-radius:3px}
+/* photo */
+.ph{position:relative;overflow:hidden;background:var(--bg2)}
+.ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.bm{position:absolute;top:8px;right:8px;width:32px;height:32px;border-radius:50%;border:0;background:rgba(0,0,0,.5);color:#fff;display:grid;place-items:center;z-index:3;backdrop-filter:blur(6px)}
+.bm svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2}.bm.on{background:var(--ac)}.bm.on svg{fill:#fff}
+/* top block */
+.top3{display:grid;gap:14px;grid-template-columns:1fr}
+@media(min-width:900px){.top3{grid-template-columns:2fr 1fr}}
+.lead{position:relative;border-radius:10px;overflow:hidden;min-height:340px;cursor:pointer;color:#fff;display:flex;align-items:flex-end}
+.lead .ph{position:absolute;inset:0}.lead:hover img,.card:hover img{transform:scale(1.04)}
+.lead:before{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.85),rgba(0,0,0,.05) 65%);z-index:1}
+.lead .tx{position:relative;z-index:2;padding:18px 20px;display:flex;flex-direction:column;gap:6px;max-width:760px}
+.lead h2{font-size:clamp(24px,3.4vw,36px)}.lead p{margin:0;color:rgba(255,255,255,.85);font-size:15px}
+.lead .cl{color:#ff8a96}.lead .meta{color:rgba(255,255,255,.75)}
+.side{display:flex;flex-direction:column;border:1px solid var(--bd);border-radius:10px}
+.si{display:flex;gap:12px;padding:12px;cursor:pointer;flex:1;align-items:center}.si+.si{border-top:1px solid var(--bd)}
+.si:hover{background:var(--bg2)}.si:first-child{border-radius:10px 10px 0 0}.si:last-child{border-radius:0 0 10px 10px}
+.si .ph{width:96px;height:72px;border-radius:6px;flex:none}
+.si h3{font-size:15.5px;margin:3px 0 4px}
+/* grid */
+.grid{display:grid;gap:16px 14px;grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}
+.card{display:flex;flex-direction:column;gap:6px;cursor:pointer;animation:in .35s both}
+.card .ph{aspect-ratio:16/10;border-radius:8px}
+.card h3{font-size:17.5px}.card:hover h3{color:var(--lk)}
+.card p{margin:0;color:var(--mt);font-size:13.5px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+mark{background:#ffe27a;color:#111;border-radius:2px}
+.sk{height:250px;border-radius:10px;background:linear-gradient(90deg,var(--bg2) 25%,var(--bd) 50%,var(--bg2) 75%);background-size:200% 100%;animation:sh 1.2s infinite}@keyframes sh{to{background-position:-200% 0}}
+/* categories */
+.tile{position:relative;height:150px;border-radius:10px;overflow:hidden;color:#fff;display:flex;align-items:flex-end;padding:14px}
+.tile .ph{position:absolute;inset:0}.tile:before{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.8),rgba(0,0,0,.1));z-index:1}
+.tile div{position:relative;z-index:2}.tile h3{font-size:22px}.tile:hover img{transform:scale(1.06)}
+/* article */
+.art{max-width:800px;margin:0 auto}
+.art h1{font-size:clamp(28px,4.5vw,42px);margin:6px 0 8px}.lede{font:20px/1.4 var(--serif);color:var(--mt);margin:0 0 10px}
+.art .ph.big{aspect-ratio:2/1;border-radius:10px;margin:12px 0}
+.acts{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+.body p{font:18px/1.7 var(--serif);margin:0 0 .9em}
+.back{color:var(--mt);font-size:13px;font-weight:600}.back:hover{color:var(--tx)}
+.related{max-width:1240px;margin:0 auto}
+.empty{text-align:center;padding:40px 10px;color:var(--mt)}.empty h3{color:var(--tx);margin-bottom:4px}
+.row{display:flex;align-items:center;gap:12px;padding:10px 12px;border:1px solid var(--bd);border-radius:10px;margin-bottom:8px;flex-wrap:wrap}
+.inp{width:100%;background:var(--bg);border:1px solid var(--bd);border-radius:8px;padding:8px 12px}
+.sw{width:40px;height:22px;border-radius:99px;background:var(--bd);border:0;position:relative}.sw:after{content:"";position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:#fff;transition:.2s}.sw.on{background:var(--ac)}.sw.on:after{left:21px}
+.set h3{font:700 16px var(--sans);margin:18px 0 8px}
+#toasts{position:fixed;right:14px;bottom:14px;display:grid;gap:8px;z-index:90}
+.toast{background:var(--tx);color:var(--bg);padding:9px 14px;border-radius:8px;animation:in .3s;font-size:14px}.toast.err{background:#d92d20;color:#fff}
+.modal{position:fixed;inset:0;z-index:80;background:rgba(0,0,0,.5);display:grid;place-items:center;padding:16px}
+.modal>div{background:var(--bg);border:1px solid var(--bd);border-radius:12px;padding:20px;max-width:380px}
+.spin{display:inline-block;animation:rot 1s linear infinite}@keyframes rot{to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div id="prog"></div>
+<header class="top">
+ <div class="tick" id="tick"></div>
+ <div class="wrap row1">
+  <a class="logo" href="#/">Tech<b>Stream</b></a>
+  <nav id="nav" aria-label="Навигация"></nav>
+  <span class="date" id="date"></span>
+  <div class="hr"><div class="sb"><input id="q" type="search" placeholder="Поиск новостей…  ( / )" aria-label="Поиск"></div><button class="ib" id="tt" aria-label="Сменить тему" title="Тема">◐</button></div>
+ </div>
+ <div class="cats"><div class="wrap" id="cats"></div></div>
+</header>
+<main id="main"></main>
+<div id="toasts" role="status" aria-live="polite"></div>
+<script>
+const Storage={get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch{return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch{}}};
+const SRC=[
+{id:"habr",name:"Habr",url:"https://habr.com/ru/rss/all/all/",domain:"habr.com",kind:"rss",enabled:true},
+{id:"tc",name:"TechCrunch",url:"https://techcrunch.com/feed/",domain:"techcrunch.com",kind:"rss",enabled:true},
+{id:"verge",name:"The Verge",url:"https://www.theverge.com/rss/index.xml",domain:"theverge.com",kind:"rss",enabled:true},
+{id:"ars",name:"Ars Technica",url:"https://feeds.arstechnica.com/arstechnica/index",domain:"arstechnica.com",kind:"rss",enabled:true},
+{id:"hn",name:"Hacker News",url:"https://hnrss.org/frontpage?points=100",domain:"news.ycombinator.com",kind:"discussion",enabled:true},
+{id:"rtech",name:"Reddit r/technology",url:"https://www.reddit.com/r/technology/top/.rss?t=week",domain:"reddit.com",kind:"discussion",enabled:true},
+{id:"rprog",name:"Reddit r/programming",url:"https://www.reddit.com/r/programming/top/.rss?t=week",domain:"reddit.com",kind:"discussion",enabled:true},
+{id:"rai",name:"Reddit r/artificial",url:"https://www.reddit.com/r/artificial/top/.rss?t=week",domain:"reddit.com",kind:"discussion",enabled:true}];
+/* title, summary, source, category, tags, hours ago, photo keywords */
+const RAW=[
+["Открытая модель обошла GPT-класса в тестах на рассуждение","Новая открытая языковая модель показала рекордные результаты на бенчмарках логики и кода.","habr","AI",["LLM","open-source","бенчмарки"],2,"robot,artificial"],
+["Vite 7: что изменилось в сборке и dev-сервере","Разбираем новый рантайм, ускорение холодного старта и миграцию с шестой версии.","habr","Web",["Vite","JavaScript","фронтенд"],5,"code,programming"],
+["Стартап представил чип с фотонными межсоединениями","Оптические связи между ядрами обещают снизить энергопотребление дата-центров вдвое.","tc","Hardware",["чипы","фотоника","дата-центры"],8,"microchip,circuit"],
+["Критическая уязвимость в популярной VPN-библиотеке","Исследователи нашли удалённое выполнение кода; патч уже выпущен.","verge","Security",["CVE","VPN","патч"],11,"cybersecurity,hacker"],
+["Новый флагман получил титановый корпус и 7 лет обновлений","Производитель продлил поддержку и улучшил камеру в условиях слабого света.","verge","Mobile",["смартфоны","Android","камера"],14,"smartphone,phone"],
+["Телескоп зафиксировал самую раннюю галактику","Данные указывают на формирование звёзд раньше, чем предполагали модели.","tc","Science",["космос","астрономия"],20,"galaxy,telescope"],
+["Биткоин-ETF привлекли рекордный приток средств","Институциональный спрос растёт на фоне смягчения регулирования.","tc","Crypto",["bitcoin","ETF","финансы"],26,"bitcoin,coin"],
+["Консоль нового поколения: утечка характеристик","Источники сообщают о гибридной архитектуре и поддержке трассировки лучей.","verge","Gaming",["консоли","игры","GPU"],30,"gaming,controller"],
+["Агентные ИИ-системы в продакшене: уроки года","Практики внедрения, оценки качества и контроля стоимости токенов.","habr","AI",["агенты","LLM","MLOps"],34,"robot,automation"],
+["CSS-контейнерные запросы стали стандартом де-факто","Как перейти от media queries к компонентной адаптивности без боли.","habr","Web",["CSS","адаптив","фронтенд"],40,"webdesign,laptop"],
+["Квантовый процессор прошёл рубеж коррекции ошибок","Логические кубиты показали стабильность на порядок выше физических.","tc","Science",["квантовые","физика","чипы"],48,"quantum,computer"],
+["Фишинг через поддельные уведомления об обновлении ОС","Атаки используют точные копии системных диалогов; как защититься.","habr","Security",["фишинг","безопасность"],55,"password,laptop"]];
+const CATS={AI:["#8b5cf6,#6366f1","robot,artificial"],Web:["#06b6d4,#3b82f6","code,laptop"],Hardware:["#f59e0b,#ef4444","circuit,electronics"],Security:["#10b981,#0ea5e9","cybersecurity,lock"],Mobile:["#ec4899,#8b5cf6","smartphone"],Science:["#3b82f6,#22d3ee","galaxy,space"],Crypto:["#f59e0b,#eab308","bitcoin"],Gaming:["#a855f7,#ec4899","gaming,console"],Tech:["#64748b,#334155","technology,computer"]};
+const NEWS=RAW.map((r,i)=>({id:"n"+i,title:r[0],summary:r[1],content:r[1]+"\n\nЭто демонстрационный текст статьи. В production-версии полный контент приходит из RSS (content:encoded) и очищается DOMPurify.\n\nМатериал показывает, как работает страница статьи: прогресс чтения, теги, похожие материалы и кнопки действий.",link:"https://"+(SRC.find(s=>s.id===r[2]).domain),source:r[2],category:r[3],tags:r[4],publishedAt:new Date(Date.now()-r[5]*36e5).toISOString(),photo:r[6]}));
+/* Если страница открыта как файл — ищем сервер на localhost:3000, иначе на том же адресе */
+const API=location.protocol==="file:"?"http://localhost:3000":"";
+class ApiNewsRepository{async list(){
+ const feeds=S.sources.filter(s=>s.enabled).map(s=>({id:s.id,name:s.name,url:s.url,kind:s.kind||"rss"}));
+ try{const r=await fetch(API+"/api/news?feeds="+encodeURIComponent(JSON.stringify(feeds)));if(!r.ok)throw Error("HTTP "+r.status);
+  const d=await r.json();S.demo=false;S.offline=false;(d.errors||[]).forEach(e=>toast("Не загрузился источник: "+e.name,1));
+  if(d.items&&d.items.length)Storage.set("news_cache",d.items);return d.items||[]}
+ catch(e){const c=Storage.get("news_cache",null);
+  if(c&&c.length){S.demo=false;S.offline=true;return c}
+  S.demo=true;S.offline=false;await new Promise(r=>setTimeout(r,300));return NEWS.slice()}}}
+class LocalSourceRepository{list(){return Storage.get("sources2",SRC)}save(v){Storage.set("sources2",v)}}
+const newsRepo=new ApiNewsRepository(),srcRepo=new LocalSourceRepository();
+const S={news:[],loading:true,demo:false,saved:Storage.get("saved_news",{}),savedItems:Storage.get("saved_items",{}),sources:srcRepo.list(),set:Storage.get("ts_settings",{theme:"light",lang:"ru",interval:"manual"}),q:"",sort:"date",src:"",cat:"",tag:"",timer:null};
+const $=s=>document.querySelector(s),esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const ago=d=>{const h=Math.round((Date.now()-new Date(d))/36e5);return h<1?"только что":h<24?h+" ч назад":Math.round(h/24)+" дн назад"};
+const hl=t=>{t=esc(t);if(!S.q)return t;const r=esc(S.q.replace(/[.*+?^${}()|[\]\\]/g,"\\$&"));try{return t.replace(new RegExp("("+r+")","gi"),"<mark>$1</mark>")}catch{return t}};
+const toast=(m,e)=>{const t=document.createElement("div");t.className="toast"+(e?" err":"");t.textContent=m;$("#toasts").append(t);setTimeout(()=>t.remove(),2600)};
+const gradOf=c=>"linear-gradient(135deg,"+(CATS[c]||["#8b5cf6,#22d3ee"])[0]+")";
+const bmSvg='<svg viewBox="0 0 24 24"><path d="M6 3h12v18l-6-4-6 4z"/></svg>';
+const srcOf=id=>S.sources.find(s=>s.id===id)||{name:id,domain:""};
+const isFeed=()=>{const h=location.hash;return !h||h==="#/"};
+function applyTheme(){const t=S.set.theme;document.documentElement.dataset.theme=t==="system"?"":t}
+const photo=(kw,seed,w,h)=>`https://loremflickr.com/${w}/${h}/${kw}?lock=${seed}`;
+const hs=s=>{let h=0;for(const c of String(s))h=(h*31+c.charCodeAt(0))|0;return Math.abs(h)%900+10};
+const imgSrc=(n,w,h)=>n.image||(n.photo?photo(n.photo,hs(n.id),w,h):"");
+const ph=(n,w,h,cls="")=>{const s=imgSrc(n,w,h);return `<div class="ph ${cls}" style="background:${gradOf(n.category)}">${s?`<img loading="lazy" alt="" referrerpolicy="no-referrer" src="${esc(s)}" onerror="this.remove()">`:""}</div>`};
+const bm=n=>`<button class="bm ${S.saved[n.id]?"on":""}" data-save="${n.id}" aria-label="Сохранить">${bmSvg}</button>`;
+const metaOf=n=>{const s=srcOf(n.source);return `<div class="meta"><img loading="lazy" alt="" src="https://www.google.com/s2/favicons?domain=${s.domain}&sz=32">${esc(s.name)}${n.kind==="discussion"?" 💬":""} · ${ago(n.publishedAt)}</div>`};
+function visible(){const q=S.q.toLowerCase(),on=new Set(S.sources.filter(s=>s.enabled).map(s=>s.id));
+let l=S.news.filter(n=>on.has(n.source)&&(!S.src||n.source===S.src)&&(!S.cat||n.category===S.cat)&&(!S.tag||n.tags.includes(S.tag))&&(!q||(n.title+n.summary+n.tags.join(" ")).toLowerCase().includes(q)));
+const sc=n=>(n.title.toLowerCase().includes(q)?3:0)+(n.tags.some(t=>t.toLowerCase().includes(q))?2:0)+(n.summary.toLowerCase().includes(q)?1:0);
+const f={date:(a,b)=>b.publishedAt.localeCompare(a.publishedAt),dateAsc:(a,b)=>a.publishedAt.localeCompare(b.publishedAt),source:(a,b)=>a.source.localeCompare(b.source),alpha:(a,b)=>a.title.localeCompare(b.title,"ru"),rel:(a,b)=>sc(b)-sc(a)};
+return l.sort(f[S.sort]||f.date)}
+/* ===== views ===== */
+const card=(n,i=0)=>`<article class="card" data-open="${n.id}" style="animation-delay:${Math.min(i,8)*40}ms" tabindex="0" aria-label="${esc(n.title)}"><div style="position:relative">${ph(n,480,300)}${bm(n)}</div><span class="cl">${esc(n.category)}</span><h3>${hl(n.title)}</h3><p>${hl(n.summary)}</p>${metaOf(n)}</article>`;
+const lead=n=>`<article class="lead" data-open="${n.id}" tabindex="0">${ph(n,1200,700)}${bm(n)}<div class="tx"><span class="cl">${esc(n.category)}</span><h2>${esc(n.title)}</h2><p>${esc(n.summary)}</p>${metaOf(n)}</div></article>`;
+const sideItem=n=>`<article class="si" data-open="${n.id}" tabindex="0">${ph(n,200,150)}<div><span class="cl">${esc(n.category)}</span><h3>${esc(n.title)}</h3>${metaOf(n)}</div></article>`;
+const empty=(t,s)=>`<div class="empty"><h3>${t}</h3><p>${s}</p></div>`;
+function gridHTML(){if(S.loading)return `<div class="grid">${'<div class="sk"></div>'.repeat(8)}</div>`;
+const l=visible();if(!l.length)return empty("Ничего не найдено","Измените запрос или сбросьте фильтры.");
+const filtered=!!(S.q||S.cat||S.tag||S.src);let h="",rest=l;
+if(!filtered&&S.sort==="date"&&l.length>=4){rest=l.slice(4);h+=`<section class="top3">${lead(l[0])}<div class="side">${l.slice(1,4).map(sideItem).join("")}</div></section>`;if(rest.length)h+=`<h2 class="sec">Все новости <span>${l.length}</span></h2>`}
+else h+=`<h2 class="sec">${filtered?"Результаты":"Все новости"} <span>${l.length}</span></h2>`;
+return h+(rest.length?`<div class="grid">${rest.map(card).join("")}</div>`:"")}
+function feed(){const cnt={};S.news.forEach(n=>n.tags.forEach(t=>cnt[t]=(cnt[t]||0)+1));const tags=Object.keys(cnt).sort((a,b)=>cnt[b]-cnt[a]).slice(0,12);
+return `<div class="page">${S.offline&&!S.loading?'<div class="demo"><b>Сервер недоступен.</b> Показаны новости, сохранённые при прошлом заходе. Запустите <code>start.bat</code>, чтобы обновить ленту.</div>':""}${S.demo&&!S.loading?'<div class="demo"><b>Демо-режим.</b> Сервер новостей не запущен, поэтому показаны примеры. Запустите <code>start.bat</code> (или <code>node server.js</code>) и откройте <code>http://localhost:3000</code>.</div>':""}<div class="bar"><select id="sort" aria-label="Сортировка">${[["date","Сначала новые"],["dateAsc","Сначала старые"],["rel","По релевантности"],["source","По источнику"],["alpha","По алфавиту"]].map(o=>`<option value="${o[0]}" ${S.sort===o[0]?"selected":""}>${o[1]}</option>`).join("")}</select><select id="fsrc" aria-label="Источник"><option value="">Все источники</option>${S.sources.map(s=>`<option value="${s.id}" ${S.src===s.id?"selected":""}>${esc(s.name)}</option>`).join("")}</select><span>${tags.map(t=>`<span class="chip ${S.tag===t?"on":""}" data-tag="${esc(t)}" role="button" tabindex="0">#${esc(t)}</span>`).join("")}</span><button class="btn" id="refresh" style="margin-left:auto"><span id="ricon">↻</span> Обновить</button></div><div id="grid">${gridHTML()}</div></div>`}
+function categories(){return `<div class="page"><h2 class="sec">Категории</h2><div class="grid">${Object.entries(CATS).map(([c,[g,kw]])=>`<a class="tile" href="#/" data-cat="${c}"><div class="ph" style="background:linear-gradient(135deg,${g})"><img loading="lazy" alt="" src="${photo(kw,7,480,300)}" onerror="this.remove()"></div><div><h3>${c}</h3><span class="mono">${S.news.filter(n=>n.category===c).length} новостей</span></div></a>`).join("")}</div></div>`}
+function article(id){const n=S.news.find(x=>x.id===id)||S.savedItems[id];if(!n)return `<div class="page">${empty("Статья не найдена","Вернитесь в ленту.")}</div>`;const sv=!!S.saved[n.id];
+const rel=S.news.filter(x=>x.id!==n.id&&(x.category===n.category||x.tags.some(t=>n.tags.includes(t)))).slice(0,4);
+const words=n.content.split(/\s+/).length;
+return `<div class="page"><div class="art"><a href="#/" class="back">← К ленте</a><div style="margin-top:6px"><span class="cl">${esc(n.category)}</span></div><h1>${esc(n.title)}</h1><p class="lede">${esc(n.summary)}</p><div class="meta">${esc(srcOf(n.source).name)} · ${new Date(n.publishedAt).toLocaleDateString("ru-RU",{day:"numeric",month:"long",year:"numeric"})} · ${Math.max(1,Math.ceil(words/200))} мин чтения</div>${ph(n,1200,600,"big")}
+<div class="acts"><button class="btn ${sv?"pri":""}" data-save="${n.id}">${sv?"★ Сохранено":"☆ Сохранить"}</button><button class="btn" id="share">🔗 Поделиться</button><a class="btn" target="_blank" rel="noopener" href="${n.link}">↗ Оригинал</a></div>
+<div class="body">${n.content.split("\n\n").map(p=>`<p>${esc(p)}</p>`).join("")}</div>${n.real?`<p class="mono" style="color:var(--mt);margin:0 0 12px">Показано начало материала. Полный текст — на сайте источника: <a href="${esc(n.link)}" target="_blank" rel="noopener" style="color:var(--lk);font-weight:600">${esc(srcOf(n.source).name)} ↗</a></p>`:""}<div>${n.tags.map(t=>`<span class="chip" data-tag="${esc(t)}">#${esc(t)}</span>`).join("")}</div></div>
+${rel.length?`<div class="related"><h2 class="sec">Похожие статьи</h2><div class="grid">${rel.map(card).join("")}</div></div>`:""}</div>`}
+function saved(){const pool={...S.savedItems};S.news.forEach(n=>pool[n.id]=n);const l=Object.values(pool).filter(n=>S.saved[n.id]).sort((a,b)=>S.saved[b.id]-S.saved[a.id]);const g=S.groupBy||"date";
+const key=n=>g==="source"?srcOf(n.source).name:g==="category"?n.category:new Date(S.saved[n.id]).toLocaleDateString("ru-RU");
+const groups={};l.forEach(n=>(groups[key(n)]=groups[key(n)]||[]).push(n));
+return `<div class="page"><div class="bar"><h2 style="font-size:26px;margin-right:auto">Сохранённое</h2><select id="grp" aria-label="Группировка">${[["date","По дате"],["source","По источнику"],["category","По категории"]].map(o=>`<option value="${o[0]}" ${g===o[0]?"selected":""}>${o[1]}</option>`).join("")}</select><button class="btn" id="export">⬇ JSON</button><button class="btn danger" id="clear">Очистить всё</button></div>${l.length?Object.entries(groups).map(([k,a])=>`<h2 class="sec" style="font-size:16px">${esc(k)} <span>${a.length}</span></h2><div class="grid">${a.map(card).join("")}</div>`).join(""):empty("Пока пусто","Нажмите закладку на карточке, чтобы сохранить статью.")}</div>`}
+function settings(){return `<div class="page set" style="max-width:760px"><h2 class="sec">Настройки</h2><h3>RSS-источники</h3>${S.sources.map(s=>`<div class="row"><img alt="" width="20" src="https://www.google.com/s2/favicons?domain=${s.domain}&sz=32"><div style="flex:1;min-width:140px"><b>${esc(s.name)}</b><div class="mono" style="color:var(--mt);word-break:break-all">${esc(s.url)}</div></div><button class="sw ${s.enabled?"on":""}" data-tg="${s.id}" role="switch" aria-checked="${s.enabled}" aria-label="Вкл/выкл ${esc(s.name)}"></button><button class="btn danger" data-del="${s.id}">Удалить</button></div>`).join("")}
+<div class="row"><input id="newurl" class="inp" style="flex:1;min-width:200px;width:auto" placeholder="https://example.com/feed.xml" aria-label="URL RSS"><button class="btn pri" id="add">Добавить</button></div>
+<h3>Тема</h3><div>${[["light","Светлая"],["dark","Тёмная"],["system","Системная"]].map(o=>`<button class="chip ${S.set.theme===o[0]?"on":""}" data-theme="${o[0]}">${o[1]}</button>`).join("")}</div>
+<h3>Язык</h3><div>${["ru","en"].map(l=>`<button class="chip ${S.set.lang===l?"on":""}" data-lang="${l}">${l.toUpperCase()}</button>`).join("")}</div>
+<h3>Автообновление</h3><select id="int" class="inp" style="max-width:240px">${[["manual","Вручную"],["5","5 минут"],["15","15 минут"],["60","1 час"]].map(o=>`<option value="${o[0]}" ${S.set.interval===o[0]?"selected":""}>${o[1]}</option>`).join("")}</select>
+<div style="margin-top:24px"><button class="btn danger" id="reset">Сбросить все данные</button></div></div>`}
+/* ===== router ===== */
+function renderNav(){const r=location.hash||"#/";
+$("#nav").innerHTML=[["#/","Лента"],["#/categories","Категории"],["#/saved","Сохранённое"],["#/settings","Настройки"]].map(([h,t])=>`<a href="${h}" class="${r===h||(h==="#/"&&r.startsWith("#/article"))?"on":""}">${t}${h==="#/saved"&&Object.keys(S.saved).length?`<b>${Object.keys(S.saved).length}</b>`:""}</a>`).join("");
+$("#cats").innerHTML=`<a href="#/" data-cat="" class="${!S.cat&&isFeed()?"on":""}">Все</a>`+Object.keys(CATS).map(c=>`<a href="#/" data-cat="${c}" class="${S.cat===c&&isFeed()?"on":""}">${c}</a>`).join("")}
+function route(){const r=location.hash.slice(1)||"/";let h;
+if(r==="/categories")h=categories();else if(r.startsWith("/article/"))h=article(r.split("/")[2]);else if(r==="/saved")h=saved();else if(r==="/settings")h=settings();else h=feed();
+$("#main").innerHTML=h;renderNav();scrollTo(0,0);$("#prog").style.width=0}
+const rerender=()=>{const y=scrollY;route();scrollTo(0,y)};
+function updateGrid(){const g=$("#grid");if(g)g.innerHTML=gridHTML();renderNav()}
+/* ===== actions ===== */
+function toggleSave(id){if(S.saved[id]){delete S.saved[id];delete S.savedItems[id];toast("Удалено из сохранённого")}else{S.saved[id]=Date.now();const a=S.news.find(n=>n.id===id);if(a)S.savedItems[id]=a;toast("Статья сохранена")}Storage.set("saved_news",S.saved);Storage.set("saved_items",S.savedItems);
+const r=location.hash;if(r.startsWith("#/saved")||r.startsWith("#/article"))rerender();else{document.querySelectorAll(`[data-save="${id}"]`).forEach(b=>b.classList.toggle("on",!!S.saved[id]));renderNav()}}
+const dedupe=l=>[...new Map(l.map(n=>[n.link+n.title,n])).values()];
+async function load(){S.loading=true;updateGrid();try{S.news=dedupe(await newsRepo.list())}catch(e){toast("Ошибка загрузки: "+e.message,1)}S.loading=false;if(location.hash!=="#/settings")rerender()}
+function modal(t,p,ok){const m=document.createElement("div");m.className="modal";m.innerHTML=`<div role="dialog" aria-modal="true"><h3>${t}</h3><p style="color:var(--mt)">${p}</p><div style="display:flex;gap:8px;justify-content:flex-end"><button class="btn" data-x>Отмена</button><button class="btn danger" data-ok>Подтвердить</button></div></div>`;
+m.onclick=e=>{if(e.target===m||e.target.dataset.x!==undefined)m.remove();if(e.target.dataset.ok!==undefined){m.remove();ok()}};document.body.append(m);m.querySelector("[data-x]").focus()}
+function setTimer(){clearInterval(S.timer);const i=+S.set.interval;if(i)S.timer=setInterval(load,i*6e4)}
+const saveSet=()=>Storage.set("ts_settings",S.set);
+const goFeed=()=>{if(!isFeed())location.hash="#/";else rerender()};
+let deb;document.addEventListener("input",e=>{if(e.target.id==="q"){clearTimeout(deb);deb=setTimeout(()=>{S.q=e.target.value.trim();if(isFeed())updateGrid();else location.hash="#/"},250)}});
+document.addEventListener("change",e=>{const i=e.target.id;if(i==="sort"){S.sort=e.target.value;updateGrid()}if(i==="fsrc"){S.src=e.target.value;updateGrid()}if(i==="grp"){S.groupBy=e.target.value;rerender()}
+if(i==="int"){S.set.interval=e.target.value;saveSet();setTimer();toast("Сохранено")}});
+document.addEventListener("click",e=>{const t=e.target,c=s=>t.closest(s);let x;
+if(x=c("[data-save]")){e.stopPropagation();e.preventDefault();toggleSave(x.dataset.save);return}
+if(x=c("[data-cat]")){S.cat=x.dataset.cat;S.tag="";if(isFeed()){e.preventDefault();rerender()}return}
+if(x=c("[data-tag]")){e.stopPropagation();S.tag=x.dataset.tag===S.tag?"":x.dataset.tag;goFeed();return}
+if(x=c("[data-open]")){location.hash="#/article/"+x.dataset.open;return}
+if(c("#tt")){const dark=document.documentElement.dataset.theme==="dark"||(!document.documentElement.dataset.theme&&matchMedia("(prefers-color-scheme:dark)").matches);S.set.theme=dark?"light":"dark";saveSet();applyTheme();if(location.hash==="#/settings")rerender();return}
+if(c("#refresh")){$("#ricon").classList.add("spin");load().then(()=>toast("Лента обновлена"));return}
+if(c("#share")){navigator.clipboard?.writeText(location.href).then(()=>toast("Ссылка скопирована"),()=>toast("Не удалось скопировать",1));return}
+if(c("#export")){const b=new Blob([JSON.stringify(Object.values(S.savedItems).filter(n=>S.saved[n.id]),null,2)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="saved_news.json";a.click();toast("Экспортировано");return}
+if(c("#clear")){modal("Очистить сохранённое?","Все сохранённые статьи будут удалены.",()=>{S.saved={};S.savedItems={};Storage.set("saved_news",S.saved);Storage.set("saved_items",S.savedItems);rerender();toast("Очищено")});return}
+if(x=c("[data-tg]")){const s=S.sources.find(s=>s.id===x.dataset.tg);s.enabled=!s.enabled;srcRepo.save(S.sources);x.classList.toggle("on",s.enabled);x.setAttribute("aria-checked",s.enabled);return}
+if(x=c("[data-del]")){S.sources=S.sources.filter(s=>s.id!==x.dataset.del);srcRepo.save(S.sources);rerender();toast("Источник удалён");return}
+if(c("#add")){const v=$("#newurl").value.trim();let u;try{u=new URL(v);if(!/^https?:$/.test(u.protocol))throw 0}catch{toast("Некорректный URL",1);return}
+if(S.sources.some(s=>s.url===v)){toast("Источник уже добавлен",1);return}
+toast("Проверка доступности RSS…");setTimeout(()=>{S.sources.push({id:"s"+Date.now(),name:u.hostname.replace("www.",""),url:v,domain:u.hostname,enabled:true});srcRepo.save(S.sources);rerender();toast("Источник добавлен. Нажмите «Обновить» в ленте")},300);return}
+if(x=c("[data-theme]")){S.set.theme=x.dataset.theme;saveSet();applyTheme();x.parentElement.querySelectorAll(".chip").forEach(b=>b.classList.toggle("on",b===x));return}
+if(x=c("[data-lang]")){S.set.lang=x.dataset.lang;saveSet();x.parentElement.querySelectorAll(".chip").forEach(b=>b.classList.toggle("on",b===x));toast("Язык: "+S.set.lang.toUpperCase());return}
+if(c("#reset")){modal("Сбросить все данные?","Источники, сохранённое и настройки будут удалены.",()=>{["saved_news","saved_items","sources","sources2","ts_settings"].forEach(k=>{try{localStorage.removeItem(k)}catch{}});location.reload()})}});
+document.addEventListener("keydown",e=>{if(e.key==="Enter"&&e.target.matches("[data-open],[data-tag]"))e.target.click();
+if(e.key==="Escape"){document.querySelector(".modal")?.remove();document.activeElement?.blur()}
+if(/INPUT|SELECT|TEXTAREA/.test(document.activeElement.tagName))return;
+if(e.key==="/"){e.preventDefault();$("#q").focus()}
+if(e.key==="s"&&location.hash.startsWith("#/article/"))toggleSave(location.hash.split("/")[2]);
+if(e.key==="g"){window._g=Date.now()}else if(e.key==="h"&&Date.now()-(window._g||0)<800)location.hash="#/"});
+addEventListener("scroll",()=>{if(location.hash.startsWith("#/article")){const h=document.documentElement;$("#prog").style.width=(scrollY/(h.scrollHeight-innerHeight||1)*100)+"%"}},{passive:true});
+addEventListener("hashchange",route);
+matchMedia("(prefers-color-scheme:dark)").addEventListener?.("change",applyTheme);
+/* ===== бегущая строка: поменяйте ссылку и название на свои ===== */
+const GITHUB_URL="https://github.com/Hametova00",GITHUB_NAME="GitHub · Hametova00";
+(()=>{const it=`<a href="${esc(GITHUB_URL)}" target="_blank" rel="noopener"><i>●</i>${esc(GITHUB_NAME)}</a>`,g=`<div>${it.repeat(6)}</div>`;$("#tick").innerHTML=`<div class="tk">${g}<div aria-hidden="true">${it.repeat(6).replace(/<a /g,'<a tabindex="-1" ')}</div></div>`})();
+$("#date").textContent=new Date().toLocaleDateString("ru-RU",{weekday:"long",day:"numeric",month:"long"});
+applyTheme();route();load();setTimer();
+</script>
+</body>
+</html>
